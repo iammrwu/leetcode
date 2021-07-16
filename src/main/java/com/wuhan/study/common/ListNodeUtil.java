@@ -1,5 +1,9 @@
 package com.wuhan.study.common;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 /**
  * @author wuhan
  * @date 2021/4/9 15:42
@@ -31,4 +35,6 @@ public class ListNodeUtil {
         }
         System.out.println();
     }
+
+
 }

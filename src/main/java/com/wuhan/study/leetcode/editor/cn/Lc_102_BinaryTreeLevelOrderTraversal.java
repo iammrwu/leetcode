@@ -36,7 +36,6 @@ import java.util.Queue;
 // 2021-05-14 17:12:50
 public class Lc_102_BinaryTreeLevelOrderTraversal {
     public static void main(String[] args) {
-
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -55,7 +54,7 @@ public class Lc_102_BinaryTreeLevelOrderTraversal {
      * }
      * }
      */
-    class Solution {
+    public class Solution {
         public List<List<Integer>> levelOrder(TreeNode root) {
             return solve1(root);
         }

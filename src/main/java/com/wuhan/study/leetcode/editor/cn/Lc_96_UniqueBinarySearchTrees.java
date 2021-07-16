@@ -28,16 +28,28 @@ package com.wuhan.study.leetcode.editor.cn;
 // 👍 1138 👎 0
 
 // 2021-04-29 15:12:25
-public class Lc_96_UniqueBinarySearchTrees{
+public class Lc_96_UniqueBinarySearchTrees {
     public static void main(String[] args) {
-         
+
     }
+
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int numTrees(int n) {
-return 0;
+    class Solution {
+        public int numTrees(int n) {
+            if (n == 0 || n == 1) {
+                return 1;
+            }
+            int[] dp=new int[n+1];
+            dp[0]=1;
+            dp[1]=1;
+            for (int i = 2; i <= n; i++) {
+                for (int root = 1; root <= i; root++) {
+                    dp[i] +=dp[root-1] * dp[i-root];
+                }
+            }
+            return dp[n];
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
