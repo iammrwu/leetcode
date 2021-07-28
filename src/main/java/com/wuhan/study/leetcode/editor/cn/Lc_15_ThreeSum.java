@@ -45,7 +45,7 @@ import java.util.*;
 // 2021-04-22 11:34:32
 public class Lc_15_ThreeSum {
     public static void main(String[] args) {
-        int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
+        int[] nums = new int[]{-2,0,1,1,2};
         System.out.println(new Lc_15_ThreeSum().new Solution().threeSum(nums));
     }
 
@@ -53,72 +53,41 @@ public class Lc_15_ThreeSum {
     class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
 //            return solve1(nums);
-            return solve2(nums);
+//            return solve2(nums);
+            return solve3(nums);
         }
 
-//        private List<List<Integer>> solve3(int[] nums) {
-//            List<List<Integer>> ans = new ArrayList<>();
-//            for (int i = 0; i < nums.length; i++) {
-//                int target = nums[i];
-//                for (int j = i+1; j < nums.length; j++) {
-//                    if (nums[j] != target) {
-//                        List<Integer> others = new ArrayList<>();
-//                        if (others.contains(-target - nums[j])) {
-//                            ans.add(Arrays.asList(target, nums[j], -target - nums[j]));
-//                        } else {
-//                            others.add(nums[j]);
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-
-        private List<List<Integer>> solve2(int[] nums) {
-            List<Integer> numSet = new ArrayList<>();
-            for (int num : nums) {
-                if (!numSet.contains(num)) {
-                    numSet.add(num);
-                }
-            }
+        private List<List<Integer>> solve3(int[] nums) {
             List<List<Integer>> ans = new ArrayList<>();
-            for (Integer integer : numSet) {
-                int target = integer;
-                List<Integer> others = new ArrayList<>();
-                for (Integer i : numSet) {
-                    if (!i.equals(target)) {
-                        if (others.contains(-target - i)) {
-                            ans.add(Arrays.asList(target, i, -target - i));
-                        } else {
-                            others.add(i);
+            if (nums.length < 3) {
+                return ans;
+            }
+            Arrays.sort(nums);
+            for (int i = 0; i < nums.length-2; i++) {
+                if (i>0 && nums[i]== nums[i-1]) {
+                    continue;
+                }
+                int left=i+1,right=nums.length-1;
+                while (left < right) {
+                    int sum=nums[i]+nums[left]+nums[right];
+                    if (sum<0) {
+                        left++;
+                    } else if (sum > 0) {
+                        right--;
+                    }else {
+                        ans.add(Arrays.asList(nums[i],nums[left],nums[right]));
+                        left++;
+                        right--;
+                        while (left<right &&nums[left]==nums[left-1]) {
+                            left++;
+                        }
+                        while (right > left && nums[right] == nums[right +1]) {
+                            right--;
                         }
                     }
                 }
             }
             return ans;
-        }
-
-        private List<List<Integer>> solve1(int[] nums) {
-            Set<Integer> numSet = new HashSet<>();
-            for (int i = 0; i < nums.length; i++) {
-                numSet.add(nums[i]);
-            }
-            List<List<Integer>> lists = new ArrayList<>();
-
-            Iterator<Integer> iNums = numSet.iterator();
-            while (iNums.hasNext()) {
-                int target = iNums.next();
-                Map<Integer, Integer> members = new HashMap<>();
-                numSet.forEach(i -> {
-                    if (!i.equals(target)) {
-                        if (members.containsValue(target - i)) {
-                            lists.add(Arrays.asList(members.get(i), i));
-                        }
-                        members.put(i, nums[i]);
-                    }
-                });
-            }
-            return lists;
         }
 
     }
